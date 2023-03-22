@@ -1,0 +1,33 @@
+:root {
+    /* colors */
+    --js-primary-color: rgb(240, 219, 79);
+    --js-dark-shade: rgb(50, 51, 48);
+    --js-light-shade: rgb(244, 244, 244);
+}
+
+
+body {
+    background-color: var(--js-light-shade);
+}
+
+.page-container {
+    display: flex;
+}
+
+.header {
+    width: 100%;
+    background-color: var(--js-primary-color);
+    height: 100px;
+}
+
+.container {
+    margin: 0 auto;
+    display: flex;
+    width: 70%;
+}
+
+.header__content {
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
