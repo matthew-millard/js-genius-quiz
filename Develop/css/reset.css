@@ -18,8 +18,8 @@ figure {
 body {
     min-height: 100vh;
     text-rendering: optimizeSpeed;
-    line-height: 1.5;
     font-family: 'Poppins', sans-serif;
+    line-height: 1.5;
   }
 
 
