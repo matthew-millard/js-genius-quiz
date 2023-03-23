@@ -27,13 +27,28 @@
 
         <!-- Main -->
         <main class="main flex">
+            <!-- start -->
                 <div class="quiz-box flex">
-                    <div class="quiz-box__content">
+                    <div class="quiz-box__content rules">
                         <h2>Are you a JavaScript genius?</h2>
                         <h3>Take the quiz and find out!</h3>
                         <p>You have <strong>60 seconds</strong> to impress. Try to answer correctly as many JavaScript questions as you can before the timer runs out.</p>
+                        <p>If you answer a question incorrectly, you will be given a <b>5s time penalty</b>.</p>
                     </div>
                     <button class="quiz-box__button start-button" type="button">Start</button>
+            <!-- Questions -->
+                    <div class="quiz-box__questions flex hidden">
+                        <div class="question">
+                            <h2>Question 1</h2>
+                            <h3 id="question">Which is the correct method for adding a custom attribute to a HTML element?</h3>
+                        </div>
+                        <div id="answers" class="answers grid">
+                            <!-- <button class="answer-button">Answer 1</button>
+                            <button class="answer-button">Answer 2</button>
+                            <button class="answer-button">Answer 3</button>
+                            <button class="answer-button">Answer 4</button> -->
+                        </div>
+                    </div>
                 </div>
         </main>
 
