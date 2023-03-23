@@ -81,7 +81,7 @@ span {
 .fa-clock::before {
     content: '\f017';
     font: var(--fa-font-solid);
-    padding-right: 1rem;
+    margin-right: 1rem;
 }
 
 /* Main */
