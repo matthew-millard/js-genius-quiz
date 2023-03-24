@@ -1,11 +1,21 @@
+// Questions Array
 var questions = [
 	{
-		question: 'What is 2 + 2',
+		question: 'which method do we use to store values in the localStorage object?',
 		answers: [
-			{ text: '4', correct: true },
-			{ text: '3', correct: false },
-			{ text: '22', correct: false },
-			{ text: '0', correct: false },
+			{ text: 'localStorage.setItem(key, value)', correct: true },
+			{ text: 'localStorage.getItem(key, value)', correct: false },
+			{ text: 'localStorage.removeItem(key)', correct: false },
+			{ text: 'localStorage.clear()', correct: false },
+		],
+	},
+	{
+		question: 'Which method is one way to set a custom data attribute on a element?',
+		answers: [
+			{ text: 'getAttribute()', correct: false },
+			{ text: 'removeAttribute()', correct: false },
+			{ text: 'setAttribute()', correct: true },
+			{ text: 'JSON.stringify()', correct: false },
 		],
 	},
 ]
@@ -16,17 +26,19 @@ var displayTimer = document.querySelector('#timer')
 var rules = document.querySelector('.rules')
 var questionElement = document.getElementById('question')
 var answersButtons = document.getElementById('answers')
+var message = document.getElementById('message')
+var messageElement = document.createElement('p')
 var timeLeft = 60
 
 function startQuiz() {
-	rules.classList.add('hidden')
-	startButton.classList.add('hidden')
-	questionsBox.classList.remove('hidden')
-	setNextQuestion(questions)
-	startTimer()
+	rules.classList.add('hidden') // Hide rules
+	startButton.classList.add('hidden') // Hide start button
+	questionsBox.classList.remove('hidden') // Show question container
+	setNextQuestion(questions) // Sets up the next question
+	startTimer() // Starts timer
 }
 
-startButton.addEventListener('click', startQuiz)
+startButton.addEventListener('click', startQuiz) // Starts quiz function
 
 // Timer Function
 function startTimer() {
@@ -42,15 +54,55 @@ function startTimer() {
 	}, 1000)
 }
 
+// Set Next Question Function
 function setNextQuestion(questions) {
 	questionElement.innerText = questions[0].question
 	questions[0].answers.forEach(answer => {
 		var button = document.createElement('button')
 		button.innerText = answer.text
 		button.classList.add('answer-button')
+		if (answer.correct) {
+			button.dataset.correct = answer.correct
+		}
+		button.addEventListener('click', selectAnswer)
 		answersButtons.appendChild(button)
-		console.log('hi')
 	})
+}
+
+// Selected Answer
+function selectAnswer(e) {
+	const selectedAnswer = e.target
+	const correct = selectedAnswer.dataset.correct
+	clearMessage()
+	displayMessage(correct)
+	Array.from(answersButtons.children).forEach(button => {
+		setStatusClass(button, button.dataset.correct)
+	})
+}
+
+function setStatusClass(element, correct) {
+	if (correct) {
+		element.classList.add('correct')
+	} else {
+		element.classList.add('wrong')
+	}
+}
+
+// Will display message to user based on whether their answer is wrong or correct.
+function displayMessage(correct) {
+	if (correct) {
+		messageElement.innerText = 'That is correct!'
+	} else {
+		messageElement.innerText = 'That is wrong!'
+	}
+	message.appendChild(messageElement)
+}
+
+// Prevents multiple messages being displayed if the user clicks multiple times
+function clearMessage() {
+	while (message.children[0] != null) {
+		message.removeChild(messageElement)
+	}
 }
 
 // When Start Button is 'click'ed => the startQuiz
