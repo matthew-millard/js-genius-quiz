@@ -99,6 +99,7 @@ submitButton.addEventListener('click', () => {
 	var userNameCapitalized = userName.charAt(0).toUpperCase() + userName.slice(1)
 	localStorage.setItem('Name', userNameCapitalized)
 	localStorage.setItem('Score', userScore)
+	document.location.reload()
 })
 
 // Timer Function
@@ -146,7 +147,7 @@ function selectAnswer(e) {
 		setStatusClass(button, button.getAttribute('data-correct'))
 		removeEventListener(button, selectAnswer)
 	})
-	
+
 	if (questions.length > questionIndex + 1 && selectAnswer != null) {
 		nextButton.classList.remove('hidden')
 	}
@@ -209,7 +210,7 @@ function updateScore(selectedAnswer) {
 }
 
 function removeEventListener(element, callback) {
-		element.removeEventListener('click', callback)
+	element.removeEventListener('click', callback)
 }
 
 // When Start Button is 'click'ed => the startQuiz
