@@ -5,7 +5,7 @@
     --js-light-shade: rgb(244, 244, 244);
     --correct-color: rgb(61, 163, 93);
     --wrong-color: #DF2935;
-    --hover-color: #5DB7DE;
+    --hover-color: rgb(230, 230, 230);;
 
     /* fonts */
     font-size: 62.5%;
@@ -55,13 +55,17 @@ span {
     display: grid;
 }
 
-.hidden {
+.hide {
     display: none;
+}
+
+.hidden {
+    visibility: hidden;
 }
 
 .page-container {
     position: relative;
-    padding-bottom: 10vh;
+    padding-bottom: 5vh;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -96,7 +100,7 @@ span {
 /* Main */
 
 .main {
-    height: 75vh;
+    height: 80vh;
     flex-direction: column;
     justify-content: center;
 }
@@ -109,6 +113,8 @@ span {
     width: 90%;
     max-width: 700px;
     height: 90%;
+    max-height: 500px;
+    padding: 3rem;
     background-color: var(--js-primary-color);
     border-radius: 0.5rem;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
@@ -116,7 +122,6 @@ span {
 
 .quiz-box__content {
     width: 90%;
-    background-color: var(--js-light-shade);
     border-radius: .5rem;
     padding: 1rem;
 }
@@ -137,6 +142,20 @@ span {
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     background-color: var(--js-light-shade);
 }
+
+#next-button {
+    margin: 0 auto;
+    width: 50%;
+    height: 4rem;
+    background-color: var(--js-light-shade);
+    font-size: 1.6rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+
 
 .quiz-box__button:hover {
     background-color: var(--hover-color);
@@ -172,15 +191,21 @@ span {
     transition-duration: 150ms;
 }
 
-.answer-button.correct {
+
+.answer-button.correct,
+.answer-button.correct:active, 
+.answer-button.correct:hover {
     background-color: var(--correct-color);
 }
 
-.answer-button.wrong {
+.answer-button.wrong,
+.answer-button.wrong:active, 
+.answer-button.wrong:hover {
     background-color: var(--wrong-color);
 }
 
-.answer-button:hover {
+.answer-button:hover,
+#next-button:hover {
     cursor: pointer;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
     transform: translateY(-1px);
@@ -197,7 +222,82 @@ span {
 #message > * {
     font-size: 2rem;
     font-weight: bold;
+    margin: 1rem;
 }
+
+/* time is up */
+
+.time-up {
+    margin: 0 auto;
+    width: 90%;
+    max-width: 700px;
+    height: 80%;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: var(--js-primary-color);
+    padding: 3rem;
+    border-radius: 0.5rem;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+
+.time-up h2 {
+    font-size: 8rem;
+}
+
+.time-up input {
+    margin: 0 auto;
+    width: 80%;
+    display: block;
+    font-size: 2rem;
+    outline: none;
+    border: none;
+    background: none;
+    border-bottom: 2px solid var(--js-dark-shade);
+    margin-bottom: 5rem;
+}
+
+.time-up button {
+    margin: 0 auto;
+    display: block;
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 2rem 5rem;
+    background-color:rgb(61, 163, 93);
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.time-up button:hover {
+    cursor: pointer;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+}
+
+.time-up button:active {
+    transform: none;
+    box-shadow: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Footer */
 .footer {
@@ -206,9 +306,16 @@ span {
     left: 0;
     height: 10vh;
     width: 100%;
-    justify-content: center;
-    align-items: center;
     background-color: var(--js-primary-color);
+}
+
+.footer__content {
+    margin: 0 auto;
+    width: 90%;
+    max-width: 700px;
+    height: 100%;
+    justify-content: space-around;
+    align-items: center;
 }
 
 
