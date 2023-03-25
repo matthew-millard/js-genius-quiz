@@ -18,8 +18,53 @@ var questions = [
 			{ text: 'JSON.stringify()', correct: false },
 		],
 	},
+	{
+		question: 'Which method can be used to convert a string into a JavaScript object?',
+		answers: [
+			{ text: 'stringify.JSON()', correct: false },
+			{ text: 'JSON.parse()', correct: true },
+			{ text: 'parse.JSON()', correct: false },
+			{ text: 'JSON.stringify()', correct: false },
+		],
+	},
+	{
+		question: 'Functions are allowed in JSON?',
+		answers: [
+			{ text: 'True', correct: false },
+			{ text: 'False', correct: true },
+		],
+	},
+	{
+		question: 'Which method can be used to convert a JavaScript object into a data string?',
+		answers: [
+			{ text: 'JSON.stringify()', correct: true },
+			{ text: 'JSON.parse()', correct: false },
+			{ text: 'JSON.parse()', correct: false },
+			{ text: 'JSON.parse()', correct: false },
+		],
+	},
+	{
+		question: 'Function expressions are hoisted?',
+		answers: [
+			{ text: 'True', correct: false },
+			{ text: 'False', correct: true },
+		],
+	},
+	{
+		question: "The querySelector('selector') method always returns the first element it finds that matches the selector?",
+		answers: [
+			{ text: 'True', correct: true },
+			{ text: 'False', correct: false },
+		],
+	},
 ]
 
+var form = document.getElementById('form')
+var submitButton = form.querySelector('button')
+var pointsScored = document.getElementById('points-scored')
+var score = document.getElementById('user-score')
+var timeUp = document.querySelector('.time-up')
+var quizBox = document.querySelector('.quiz-box')
 var questionsBox = document.querySelector('.quiz-box__questions')
 var startButton = document.querySelector('.start-button')
 var displayTimer = document.querySelector('#timer')
@@ -28,24 +73,40 @@ var questionElement = document.getElementById('question')
 var answersButtons = document.getElementById('answers')
 var message = document.getElementById('message')
 var messageElement = document.createElement('p')
+var nextButton = document.getElementById('next-button')
 var timeLeft = 60
+var userScore = 0
+var questionIndex = 0
 
 function startQuiz() {
-	rules.classList.add('hidden') // Hide rules
-	startButton.classList.add('hidden') // Hide start button
-	questionsBox.classList.remove('hidden') // Show question container
+	rules.classList.add('hide') // Hide rules
+	startButton.classList.add('hide') // Hide start button
+	questionsBox.classList.remove('hide') // Show question container
 	setNextQuestion(questions) // Sets up the next question
 	startTimer() // Starts timer
 }
 
 startButton.addEventListener('click', startQuiz) // Starts quiz function
+nextButton.addEventListener('click', () => {
+	questionIndex++
+	nextButton.classList.add('hidden')
+	clearAnswers()
+	clearMessage()
+	setNextQuestion()
+})
+submitButton.addEventListener('click', () => {
+	var userName = form.querySelector('input').value.toLowerCase().trim()
+	var userNameCapitalized = userName.charAt(0).toUpperCase() + userName.slice(1)
+	localStorage.setItem('Name', userNameCapitalized)
+	localStorage.setItem('Score', userScore)
+})
 
 // Timer Function
 function startTimer() {
 	var timer = setInterval(() => {
 		if (timeLeft === 0) {
 			clearInterval(timer)
-			console.log('Game Over!')
+			timeIsUp()
 		} else {
 			timeLeft = timeLeft - 1
 			displayTimer.innerHTML = `${timeLeft}s`
@@ -55,14 +116,17 @@ function startTimer() {
 }
 
 // Set Next Question Function
-function setNextQuestion(questions) {
-	questionElement.innerText = questions[0].question
-	questions[0].answers.forEach(answer => {
+function setNextQuestion() {
+	questionElement.innerText = questions[questionIndex].question
+	questions[questionIndex].answers.forEach(answer => {
 		var button = document.createElement('button')
 		button.innerText = answer.text
 		button.classList.add('answer-button')
+
 		if (answer.correct) {
-			button.dataset.correct = answer.correct
+			button.setAttribute('data-correct', 'true')
+		} else {
+			button.setAttribute('data-incorrect', 'false')
 		}
 		button.addEventListener('click', selectAnswer)
 		answersButtons.appendChild(button)
@@ -71,15 +135,24 @@ function setNextQuestion(questions) {
 
 // Selected Answer
 function selectAnswer(e) {
-	const selectedAnswer = e.target
-	const correct = selectedAnswer.dataset.correct
+	var selectedAnswer = e.target
+	updateScore(selectedAnswer)
+	var correct = selectedAnswer.getAttribute('data-correct')
+	var incorrect = selectedAnswer.getAttribute('data-incorrect')
 	clearMessage()
 	displayMessage(correct)
+	timePenalty(incorrect)
 	Array.from(answersButtons.children).forEach(button => {
-		setStatusClass(button, button.dataset.correct)
+		setStatusClass(button, button.getAttribute('data-correct'))
+		removeEventListener(button, selectAnswer)
 	})
+	
+	if (questions.length > questionIndex + 1 && selectAnswer != null) {
+		nextButton.classList.remove('hidden')
+	}
 }
 
+// Change the color of the answer buttons based on whether they are true or false. Add one point to the user's score if answered correctly.
 function setStatusClass(element, correct) {
 	if (correct) {
 		element.classList.add('correct')
@@ -103,6 +176,40 @@ function clearMessage() {
 	while (message.children[0] != null) {
 		message.removeChild(messageElement)
 	}
+}
+
+// Clears previous answers
+function clearAnswers() {
+	answersButtons.innerHTML = ''
+}
+
+// 5 second time penalty for every mistake
+function timePenalty(incorrect) {
+	if (incorrect != null && timeLeft > 0) {
+		timeLeft -= 5
+		return timeLeft
+	}
+}
+
+function timeIsUp() {
+	quizBox.classList.add('hide')
+	timeUp.classList.remove('hide')
+	pointsScored.innerText = userScore
+	form.addEventListener('submit', e => {
+		e.preventDefault()
+	})
+}
+
+function updateScore(selectedAnswer) {
+	if (selectedAnswer.dataset.correct) {
+		userScore++
+		score.innerText = userScore
+	}
+	return
+}
+
+function removeEventListener(element, callback) {
+		element.removeEventListener('click', callback)
 }
 
 // When Start Button is 'click'ed => the startQuiz

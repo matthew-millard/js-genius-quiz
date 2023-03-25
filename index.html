@@ -37,7 +37,7 @@
                     </div>
                     <button class="quiz-box__button start-button" type="button">Start</button>
             <!-- Questions -->
-                    <div class="quiz-box__questions flex hidden">
+                    <div class="quiz-box__questions flex hide">
                         <div class="question">
                             <h2>Question 1</h2>
                             <h3 id="question">Which is the correct method for adding a custom attribute to a HTML element?</h3>
@@ -49,14 +49,31 @@
                             <button class="answer-button">Answer 4</button> -->
                         </div>
                         <div id="message" class="flex"></div>
+                        <button id="next-button" class="hidden">Next</button>
                     </div>
+                </div>
+                <div class="time-up hide flex">
+                    <h2>Time is up!</h2>
+                    <p>You scored <span id="points-scored"></span> points!</p>
+                    <p>Please log your name below to claim your score.</p>
+                    <form id="form" action="" method="post">
+                        <label for="name"></label>
+                        <input type="text" id="name" placeholder="Enter your name"/>
+                        <button type="submit">Submit</button>
+                    </form>
                 </div>
         </main>
 
 
         <!-- Footer -->
-        <footer class="footer flex">
-            <a href="">View Highscores</a>
+        <footer class="footer">
+            <div class="footer__content flex">
+                <a href="">View Highscores</a>
+                <div>
+                    <span>score: </span>
+                    <span id="user-score"></span>
+                </div>
+            </div>
         </footer>
     </div>
 </body>
