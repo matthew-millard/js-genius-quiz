@@ -15,16 +15,20 @@
 </head>
 <body>
     <div class="page-container">
+
+
+
+
         <!-- Header -->
         <header class="header">
             <div class="header__content flex">
                 <h1>JS Genius Quiz</h1>
-                <div class="header__info flex">
-                    <div class="header__score">
+                <div class="header__scoreboard flex">
+                    <div class="user-score">
                         <span>score: </span>
                         <span id="user-score">0</span>
                     </div>
-                    <div class="header__timer">
+                    <div class="timer">
                         <span class="fa-clock"></span>
                         <span id="timer">60</span>
                     </div>
@@ -32,28 +36,38 @@
             </div>
         </header>
 
+
+
+
+
+
+
+
+
+
+
         <!-- Main -->
         <main class="quiz flex">
             <!-- start -->
                 <div class="quiz-box flex">
-                    <div class="quiz-box__content rules">
+                    <div class="quiz-box__content quizIntro">
                         <h2>Are you a JavaScript genius?</h2>
                         <h3>Take the quiz and find out!</h3>
                         <p>You have <strong>60 seconds</strong> to impress. Try to answer correctly as many JavaScript questions as you can before the timer runs out.</p>
-                        <p>If you answer a question incorrectly, you will be given a <b>5s time penalty</b>.</p>
+                        <p>If you answer a question incorrectly, you will be given a <strong>5s time penalty</strong>.</p>
                     </div>
                     <button class="quiz-box__button start-button" type="button">Start</button>
             <!-- Questions -->
                     <div class="quiz-box__questions flex hide">
                         <div class="question">
                             <h2>Question <span id="question-number"></span></h2>
-                            <h3 id="question">Which is the correct method for adding a custom attribute to a HTML element?</h3>
+                            <h3 id="question"></h3>
                         </div>
-                        <div id="answers" class="answers grid">
+                        <div id="answers" class="answers flex">
                             
                         </div>
                         <div id="message" class="flex"></div>
-                        <button id="next-button" class="hidden">Next</button>
+                        <button id="next-button" class="hide">Next</button>
                     </div>
                 </div>
                 <div class="time-up hide flex">
@@ -75,22 +89,10 @@
         <footer class="footer">
             <div class="footer__content flex">
                 <div>
-                    <span id="scoreboard">View Scoreboard</span>
+                    <span id="modal-is-open">View Scoreboard</span>
                 </div>
             </div>
         </footer>
-        <div class="view-scoreboard flex hide">
-            <h2>Scoreboard</h2>
-            <div>
-                <ol>
-                    <li>First</li>
-                    <li>Second</li>
-                    <li>Third</li>
-                    <li>Fourth</li>
-                    <li>Fifth</li>
-                </ol>
-            </div>
-        </div>
     </div>
 </body>
 </html>
