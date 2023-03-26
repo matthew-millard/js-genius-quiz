@@ -59,7 +59,7 @@ var questions = [
 	},
 ]
 
-var scoreboard = document.getElementById('scoreboard')
+var scoreboardModal = document.getElementById('modal-is-open')
 var viewScoreBoard = document.querySelector('.view-scoreboard')
 var form = document.getElementById('form')
 var submitButton = form.querySelector('button')
@@ -70,19 +70,19 @@ var quizBox = document.querySelector('.quiz-box')
 var questionsBox = document.querySelector('.quiz-box__questions')
 var startButton = document.querySelector('.start-button')
 var displayTimer = document.querySelector('#timer')
-var rules = document.querySelector('.rules')
+var quizIntro = document.querySelector('.quizIntro')
 var questionElement = document.getElementById('question')
 var answersButtons = document.getElementById('answers')
 var message = document.getElementById('message')
 var messageElement = document.createElement('p')
 var nextButton = document.getElementById('next-button')
 var numQuestion = document.getElementById('question-number')
-var timeLeft = 60
+var timeLeft = 10
 var userScore = 0
 var questionIndex = 0
 
 function startQuiz() {
-	rules.classList.add('hide') // Hide rules
+	quizIntro.classList.add('hide') // Hide rules
 	startButton.classList.add('hide') // Hide start button
 	questionsBox.classList.remove('hide') // Show question container
 	setNextQuestion(questions) // Sets up the next question
@@ -92,13 +92,15 @@ function startQuiz() {
 startButton.addEventListener('click', startQuiz) // Starts quiz function
 nextButton.addEventListener('click', () => {
 	questionIndex++
-	nextButton.classList.add('hidden')
+	nextButton.classList.add('hide')
 	clearAnswers()
 	clearMessage()
 	setNextQuestion()
 })
-scoreboard.addEventListener('click', e => {
-	viewScoreBoard.classList.toggle('hide')
+
+// Open scoreboard modal
+scoreboardModal.addEventListener('click', e => {
+	// .classList.toggle('hide')
 })
 
 submitButton.addEventListener('click', () => {
@@ -112,7 +114,7 @@ submitButton.addEventListener('click', () => {
 // Timer Function
 function startTimer() {
 	var timer = setInterval(() => {
-		if (timeLeft === 0) {
+		if (timeLeft <= 0) {
 			clearInterval(timer)
 			timeIsUp()
 		} else {
@@ -156,8 +158,9 @@ function selectAnswer(e) {
 		removeEventListener(button, selectAnswer)
 	})
 
+	// This will prevent showing the next question button if the user is on the last question.
 	if (questions.length > questionIndex + 1 && selectAnswer != null) {
-		nextButton.classList.remove('hidden')
+		nextButton.classList.remove('hide')
 	}
 }
 
@@ -175,7 +178,7 @@ function displayMessage(correct) {
 	if (correct) {
 		messageElement.innerText = 'That is correct!'
 	} else {
-		messageElement.innerText = 'That is wrong!'
+		messageElement.innerText = 'Incorrect answer.'
 	}
 	message.appendChild(messageElement)
 }
@@ -200,6 +203,7 @@ function timePenalty(incorrect) {
 	}
 }
 
+// Time is up window.
 function timeIsUp() {
 	quizBox.classList.add('hide')
 	timeUp.classList.remove('hide')
@@ -209,26 +213,16 @@ function timeIsUp() {
 	})
 }
 
+// If the user's answer is correct, will add one point to the user's score.
 function updateScore(selectedAnswer) {
-	if (selectedAnswer.dataset.correct) {
+	if (selectedAnswer.getAttribute('data-correct')) {
 		userScore++
 		score.innerText = userScore
 	}
 	return
 }
 
+// After the user has selected their answer, this function removes the option to click again.
 function removeEventListener(element, callback) {
 	element.removeEventListener('click', callback)
 }
-
-// When Start Button is 'click'ed => the startQuiz
-// function is called.
-// 1.Timer should begin counting down.
-// 2. Display questions.
-// 3. Notify user if the answer is correct.
-// 4. Add points to the users score card.
-// 5. Deduct time if the user answers incorrectly.
-// 6. Display next question
-// 7. Repeat steps 3 to 6 until the timer reaches zero.
-// 8. Ask the user for there name, and store the name and score.
-// 9. Rank the scoreboard in order of who currently has the most points.
