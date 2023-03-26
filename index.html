@@ -19,14 +19,21 @@
         <header class="header">
             <div class="header__content flex">
                 <h1>JS Genius Quiz</h1>
-                <div>
-                    <span class="fa-clock" id="timer">60</span>
+                <div class="header__info flex">
+                    <div class="header__score">
+                        <span>score: </span>
+                        <span id="user-score">0</span>
+                    </div>
+                    <div class="header__timer">
+                        <span class="fa-clock"></span>
+                        <span id="timer">60</span>
+                    </div>
                 </div>
             </div>
         </header>
 
         <!-- Main -->
-        <main class="main flex">
+        <main class="quiz flex">
             <!-- start -->
                 <div class="quiz-box flex">
                     <div class="quiz-box__content rules">
@@ -39,7 +46,7 @@
             <!-- Questions -->
                     <div class="quiz-box__questions flex hide">
                         <div class="question">
-                            <h2>Question 1</h2>
+                            <h2>Question <span id="question-number"></span></h2>
                             <h3 id="question">Which is the correct method for adding a custom attribute to a HTML element?</h3>
                         </div>
                         <div id="answers" class="answers grid">
@@ -50,14 +57,16 @@
                     </div>
                 </div>
                 <div class="time-up hide flex">
-                    <h2>Time is up!</h2>
-                    <p>You scored <span id="points-scored"></span> points!</p>
-                    <p>Please log your name below to claim your score.</p>
-                    <form id="form" action="" method="post">
-                        <label for="name"></label>
-                        <input type="text" id="name" placeholder="Enter your name"/>
-                        <button type="submit">Submit</button>
-                    </form>
+                    <div class="time-up__contents flex">
+                        <h2>Time is up!</h2>
+                        <p class="time-up__score-message">You scored <span id="points-scored"></span> points!</p>
+                        <p>Please log your first name below <br> to claim your score.</p>
+                        <form id="form" action="" method="post">
+                            <label for="name"></label>
+                            <input type="text" id="name" placeholder="Enter your name"/>
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
                 </div>
         </main>
 
@@ -65,13 +74,23 @@
         <!-- Footer -->
         <footer class="footer">
             <div class="footer__content flex">
-                <a href="">View Highscores</a>
                 <div>
-                    <span>score: </span>
-                    <span id="user-score"></span>
+                    <span id="scoreboard">View Scoreboard</span>
                 </div>
             </div>
         </footer>
+        <div class="view-scoreboard flex hide">
+            <h2>Scoreboard</h2>
+            <div>
+                <ol>
+                    <li>First</li>
+                    <li>Second</li>
+                    <li>Third</li>
+                    <li>Fourth</li>
+                    <li>Fifth</li>
+                </ol>
+            </div>
+        </div>
     </div>
 </body>
 </html>

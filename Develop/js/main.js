@@ -59,6 +59,8 @@ var questions = [
 	},
 ]
 
+var scoreboard = document.getElementById('scoreboard')
+var viewScoreBoard = document.querySelector('.view-scoreboard')
 var form = document.getElementById('form')
 var submitButton = form.querySelector('button')
 var pointsScored = document.getElementById('points-scored')
@@ -74,6 +76,7 @@ var answersButtons = document.getElementById('answers')
 var message = document.getElementById('message')
 var messageElement = document.createElement('p')
 var nextButton = document.getElementById('next-button')
+var numQuestion = document.getElementById('question-number')
 var timeLeft = 60
 var userScore = 0
 var questionIndex = 0
@@ -94,6 +97,10 @@ nextButton.addEventListener('click', () => {
 	clearMessage()
 	setNextQuestion()
 })
+scoreboard.addEventListener('click', e => {
+	viewScoreBoard.classList.toggle('hide')
+})
+
 submitButton.addEventListener('click', () => {
 	var userName = form.querySelector('input').value.toLowerCase().trim()
 	var userNameCapitalized = userName.charAt(0).toUpperCase() + userName.slice(1)
@@ -118,6 +125,7 @@ function startTimer() {
 
 // Set Next Question Function
 function setNextQuestion() {
+	numQuestion.innerHTML = questionIndex + 1
 	questionElement.innerText = questions[questionIndex].question
 	questions[questionIndex].answers.forEach(answer => {
 		var button = document.createElement('button')
