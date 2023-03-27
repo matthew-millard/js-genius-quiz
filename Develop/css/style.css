@@ -11,6 +11,10 @@
     font-size: 62.5%;
 }
 
+body {
+    background-color: var(--js-light-shade);
+}
+
 
 h1 {
     color: var(--js-dark-shade);
@@ -34,6 +38,10 @@ span,
 input {
     color: var(--js-dark-shade);
     font-size: 1.6rem;
+}
+
+small {
+    font-size: 12px;
 }
 
 
@@ -252,6 +260,7 @@ input {
     width: 90%;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .time-up__contents h2 {
@@ -269,15 +278,23 @@ input {
 }
 
  .time-up__contents #name {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
+/* input error message */
+.time-up__contents label > * {
+    display: block;
+    width: 100%;
+    padding-left: 1.5rem;
+    color: var(--wrong-color);
+    margin-bottom: 1rem;
+}
 
 
 .time-up input {
     margin: 0 auto;
-    width: 50%;
     display: block;
+    width: 90%;
     outline: none;
     border: none;
     background: none;
@@ -303,6 +320,35 @@ input {
 }
 
 
+/* Scoreboard Modal */
+.scoreboard {
+    position: absolute;
+    width: 80%;
+    max-width: 400px;
+    height: 400px;
+    background-color: var(--js-dark-shade);
+    z-index: 1;
+    border-radius: 0.5rem;
+}
+
+.exit-modal {
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background-color: var(--js-primary-color);
+    border: 2px solid var(--js-dark-shade);
+    border-radius: 100px;
+    top: -15px;
+    right: -15px;
+}
+
+.exit-modal:hover {
+    cursor: pointer;
+}
+
+
 
 
 /* Footer */
@@ -321,6 +367,9 @@ input {
 
 .footer__content span {
     padding: 1rem;
+}
+.footer__content span:hover {
+    cursor: pointer;
 }
 
 
