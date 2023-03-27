@@ -78,9 +78,14 @@ var message = document.getElementById('message')
 var messageElement = document.createElement('p')
 var nextButton = document.getElementById('next-button')
 var numQuestion = document.getElementById('question-number')
-var timeLeft = 5
+var timeLeft = 10
 var userScore = 0
 var questionIndex = 0
+
+var numOfHighScores = 5
+var highScores = 'High Scores'
+var highScoreString = localStorage.getItem(highScores)
+var allHighScores = JSON.parse(highScoreString) ?? []
 
 function startQuiz() {
 	quizIntro.classList.add('hide') // Hide rules
@@ -102,6 +107,7 @@ nextButton.addEventListener('click', () => {
 // Open scoreboard modal
 viewScoreBoard.addEventListener('click', e => {
 	scoreboardModal.classList.toggle('hide')
+	showHighScores()
 })
 
 // Close scoreboard modal
@@ -113,16 +119,21 @@ submitButton.addEventListener('click', e => {
 	var error = form.querySelector('label')
 	var input = form.querySelector('input')
 	var userName = input.value.toLowerCase().trim()
-	if (!userName) {
+	if (userName === '') {
 		e.preventDefault()
 		var errorMessage = document.createElement('small')
 		errorMessage.innerText = 'Please enter your name.'
 		error.appendChild(errorMessage)
 	} else {
-		var userNameCapitalized = userName.charAt(0).toUpperCase() + userName.slice(1)
-		localStorage.setItem('Name', userNameCapitalized)
-		localStorage.setItem('Score', userScore)
-		document.location.reload()
+		var score = userScore
+		var name = userName.charAt(0).toUpperCase() + userName.slice(1)
+		var newScore = { score, name }
+
+		allHighScores.push(newScore)
+		allHighScores.sort((a, b) => b.score - a.score)
+		allHighScores.splice(numOfHighScores)
+		localStorage.setItem(highScores, JSON.stringify(allHighScores))
+		location.reload()
 	}
 })
 
@@ -240,4 +251,25 @@ function updateScore(selectedAnswer) {
 // After the user has selected their answer, this function removes the option to click again.
 function removeEventListener(element, callback) {
 	element.removeEventListener('click', callback)
+}
+
+// Check for a high score
+
+function checkHighScore(score) {
+	var highScores = JSON.parse(localStorage.getItem(highScores)) ?? []
+	var lowestScore = highScores[numOfHighScores - 1]?.score ?? 0
+
+	if (score > lowestScore) {
+		saveHighScore(score, allHighScores)
+		showHighScores()
+	}
+}
+
+function showHighScores() {
+	var highScoreList = document.getElementById('high-scores')
+	allHighScores.forEach(highScore => {
+		var li = document.createElement('li')
+		li.innerText = `${highScore.name} - ${highScore.score} points`
+		highScoreList.appendChild(li)
+	})
 }

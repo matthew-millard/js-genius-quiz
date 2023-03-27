@@ -261,6 +261,7 @@ small {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
 
 .time-up__contents h2 {
@@ -281,11 +282,18 @@ small {
     margin-bottom: 1rem;
 }
 
+
+.time-up__contents label {
+    height: 2rem;
+    display: block;
+    margin-bottom: 1rem;
+}
+
 /* input error message */
 .time-up__contents label > * {
     display: block;
+    text-align: center;
     width: 100%;
-    padding-left: 1.5rem;
     color: var(--wrong-color);
     margin-bottom: 1rem;
 }
@@ -294,11 +302,12 @@ small {
 .time-up input {
     margin: 0 auto;
     display: block;
-    width: 90%;
+    width: 50%;
     outline: none;
     border: none;
     background: none;
     border-bottom: 2px solid var(--js-dark-shade);
+    text-align: center;
 }
 
 .time-up button {
@@ -329,6 +338,25 @@ small {
     background-color: var(--js-dark-shade);
     z-index: 1;
     border-radius: 0.5rem;
+}
+
+.scoreboard__contents h2 {
+    color: var(--js-primary-color);
+    font-size: 3.4rem;
+    text-align: center;
+    padding: 1rem;
+}
+
+.scoreboard__high-score-list {
+    margin: 0 auto;
+    width: 100%;
+    
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 2.4rem;
+    color: var(--js-light-shade);
+    list-style:none;
 }
 
 .exit-modal {
