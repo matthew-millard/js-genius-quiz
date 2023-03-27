@@ -76,11 +76,21 @@
                         <p class="time-up__score-message">You scored <span id="points-scored"></span> points!</p>
                         <p>Please log your first name below <br> to claim your score.</p>
                         <form id="form" action="" method="post">
-                            <label for="name"></label>
                             <input type="text" id="name" placeholder="Enter your name"/>
+                            <label for="name"></label>
                             <button type="submit">Submit</button>
                         </form>
                     </div>
+                </div>
+
+                <!-- Scoreboard Modal -->
+                <div class="scoreboard hide">
+                    <div class="exit-modal flex" data-scoreboard="close"><span><i class="fa-solid fa-xmark"></i></span></div>
+                    <ol>
+                        <li>Matthew</li>
+                        <li>Millard</li>
+                        <li>Amy</li>
+                    </ol>
                 </div>
         </main>
 
@@ -89,7 +99,7 @@
         <footer class="footer">
             <div class="footer__content flex">
                 <div>
-                    <span id="modal-is-open">View Scoreboard</span>
+                    <span data-scoreboard="open-scoreboard">View Scoreboard</span>
                 </div>
             </div>
         </footer>

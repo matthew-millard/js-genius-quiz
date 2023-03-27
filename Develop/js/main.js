@@ -59,8 +59,9 @@ var questions = [
 	},
 ]
 
-var scoreboardModal = document.getElementById('modal-is-open')
-var viewScoreBoard = document.querySelector('.view-scoreboard')
+var scoreboardModal = document.querySelector('.scoreboard')
+var viewScoreBoard = document.querySelector('[data-scoreboard*="open-scoreboard"]')
+var closeScoreBoardModal = document.querySelector('[data-scoreboard*="close"]')
 var form = document.getElementById('form')
 var submitButton = form.querySelector('button')
 var pointsScored = document.getElementById('points-scored')
@@ -77,7 +78,7 @@ var message = document.getElementById('message')
 var messageElement = document.createElement('p')
 var nextButton = document.getElementById('next-button')
 var numQuestion = document.getElementById('question-number')
-var timeLeft = 60
+var timeLeft = 5
 var userScore = 0
 var questionIndex = 0
 
@@ -99,16 +100,30 @@ nextButton.addEventListener('click', () => {
 })
 
 // Open scoreboard modal
-scoreboardModal.addEventListener('click', e => {
-	// .classList.toggle('hide')
+viewScoreBoard.addEventListener('click', e => {
+	scoreboardModal.classList.toggle('hide')
 })
 
-submitButton.addEventListener('click', () => {
-	var userName = form.querySelector('input').value.toLowerCase().trim()
-	var userNameCapitalized = userName.charAt(0).toUpperCase() + userName.slice(1)
-	localStorage.setItem('Name', userNameCapitalized)
-	localStorage.setItem('Score', userScore)
-	document.location.reload()
+// Close scoreboard modal
+closeScoreBoardModal.addEventListener('click', () => {
+	scoreboardModal.classList.add('hide')
+})
+
+submitButton.addEventListener('click', e => {
+	var error = form.querySelector('label')
+	var input = form.querySelector('input')
+	var userName = input.value.toLowerCase().trim()
+	if (!userName) {
+		e.preventDefault()
+		var errorMessage = document.createElement('small')
+		errorMessage.innerText = 'Please enter your name.'
+		error.appendChild(errorMessage)
+	} else {
+		var userNameCapitalized = userName.charAt(0).toUpperCase() + userName.slice(1)
+		localStorage.setItem('Name', userNameCapitalized)
+		localStorage.setItem('Score', userScore)
+		document.location.reload()
+	}
 })
 
 // Timer Function
