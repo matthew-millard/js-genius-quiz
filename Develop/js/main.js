@@ -78,7 +78,7 @@ var message = document.getElementById('message')
 var messageElement = document.createElement('p')
 var nextButton = document.getElementById('next-button')
 var numQuestion = document.getElementById('question-number')
-var timeLeft = 10
+var timeLeft = 60
 var userScore = 0
 var questionIndex = 0
 
@@ -86,6 +86,7 @@ var numOfHighScores = 5
 var highScores = 'High Scores'
 var highScoreString = localStorage.getItem(highScores)
 var allHighScores = JSON.parse(highScoreString) ?? []
+showHighScores()
 
 function startQuiz() {
 	quizIntro.classList.add('hide') // Hide rules
@@ -105,9 +106,8 @@ nextButton.addEventListener('click', () => {
 })
 
 // Open scoreboard modal
-viewScoreBoard.addEventListener('click', e => {
+viewScoreBoard.addEventListener('click', () => {
 	scoreboardModal.classList.toggle('hide')
-	showHighScores()
 })
 
 // Close scoreboard modal
@@ -255,21 +255,21 @@ function removeEventListener(element, callback) {
 
 // Check for a high score
 
-function checkHighScore(score) {
-	var highScores = JSON.parse(localStorage.getItem(highScores)) ?? []
-	var lowestScore = highScores[numOfHighScores - 1]?.score ?? 0
+// function checkHighScore(score) {
+// 	var highScores = JSON.parse(localStorage.getItem(highScores)) ?? []
+// 	var lowestScore = highScores[numOfHighScores - 1]?.score ?? 0
 
-	if (score > lowestScore) {
-		saveHighScore(score, allHighScores)
-		showHighScores()
-	}
-}
+// 	if (score > lowestScore) {
+// 		saveHighScore(score, allHighScores)
+// 		showHighScores()
+// 	}
+// }
 
 function showHighScores() {
 	var highScoreList = document.getElementById('high-scores')
-	allHighScores.forEach(highScore => {
+	allHighScores.forEach((highScore, index) => {
 		var li = document.createElement('li')
-		li.innerText = `${highScore.name} - ${highScore.score} points`
+		li.innerText = `${index + 1}. ${highScore.name} - ${highScore.score} points`
 		highScoreList.appendChild(li)
 	})
 }
