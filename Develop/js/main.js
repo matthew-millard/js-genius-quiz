@@ -3,10 +3,10 @@ var questions = [
 	{
 		question: 'which method do we use to store values in the localStorage object?',
 		answers: [
-			{ text: 'localStorage.setItem(key, value)', correct: true },
-			{ text: 'localStorage.getItem(key, value)', correct: false },
-			{ text: 'localStorage.removeItem(key)', correct: false },
-			{ text: 'localStorage.clear()', correct: false },
+			{ text: 'setItem(key, value)', correct: true },
+			{ text: 'getItem(key, value)', correct: false },
+			{ text: 'removeItem(key)', correct: false },
+			{ text: 'clear()', correct: false },
 		],
 	},
 	{
@@ -19,7 +19,7 @@ var questions = [
 		],
 	},
 	{
-		question: 'Which method can be used to convert a string into a JavaScript object?',
+		question: 'Which is a method that can be used to convert a string into a JavaScript object?',
 		answers: [
 			{ text: 'stringify.JSON()', correct: false },
 			{ text: 'JSON.parse()', correct: true },
@@ -28,19 +28,19 @@ var questions = [
 		],
 	},
 	{
-		question: 'Functions are allowed in JSON?',
+		question: 'True or False. Functions are allowed in JSON?',
 		answers: [
 			{ text: 'True', correct: false },
 			{ text: 'False', correct: true },
 		],
 	},
 	{
-		question: 'Which method can be used to convert a JavaScript object into a data string?',
+		question: 'Which is a method that can be used to convert a JavaScript object into a data string?',
 		answers: [
 			{ text: 'JSON.stringify()', correct: true },
 			{ text: 'JSON.parse()', correct: false },
-			{ text: 'JSON.parse()', correct: false },
-			{ text: 'JSON.parse()', correct: false },
+			{ text: 'parse.JSON()', correct: false },
+			{ text: 'stringify.JSON()', correct: false },
 		],
 	},
 	{
@@ -52,6 +52,70 @@ var questions = [
 	},
 	{
 		question: "The querySelector('selector') method always returns the first element it finds that matches the selector?",
+		answers: [
+			{ text: 'True', correct: true },
+			{ text: 'False', correct: false },
+		],
+	},
+	{
+		question: "The querySelectorAll('selector') method returns a live HTMLCollection?",
+		answers: [
+			{ text: 'True', correct: false },
+			{ text: 'False', correct: true },
+		],
+	},
+	{
+		question: "The getElementsByClassName('selector') method returns a live HTMLCollection?",
+		answers: [
+			{ text: 'True', correct: true },
+			{ text: 'False', correct: false },
+		],
+	},
+	{
+		question: 'The element.children selects all child elements of the current element?',
+		answers: [
+			{ text: 'True', correct: true },
+			{ text: 'False', correct: false },
+		],
+	},
+	{
+		question: 'Which array method can iterate through an array, and then, return a new array?',
+		answers: [
+			{ text: 'forEach()', correct: false },
+			{ text: 'map()', correct: true },
+			{ text: 'for in loop', correct: false },
+			{ text: 'for of loop', correct: false },
+		],
+	},
+	{
+		question: 'Which array method can add one or more elements to the end of an array and returns the new length of the array?',
+		answers: [
+			{ text: 'unshift()', correct: false },
+			{ text: 'shift()', correct: false },
+			{ text: 'pop()', correct: false },
+			{ text: 'push()', correct: true },
+		],
+	},
+	{
+		question: 'Which array method returns a boolean value if the array contains a certain value?',
+		answers: [
+			{ text: 'entries()', correct: false },
+			{ text: 'find()', correct: false },
+			{ text: 'includes()', correct: true },
+			{ text: 'contains()', correct: false },
+		],
+	},
+	{
+		question: 'Which array method returns a boolean value if the array contains a certain value?',
+		answers: [
+			{ text: 'entries()', correct: false },
+			{ text: 'find()', correct: false },
+			{ text: 'includes()', correct: true },
+			{ text: 'contains()', correct: false },
+		],
+	},
+	{
+		question: '$() is the shorthand for jQuery()?',
 		answers: [
 			{ text: 'True', correct: true },
 			{ text: 'False', correct: false },
