@@ -353,7 +353,7 @@ ol {
     color: var(--js-primary-color);
     font-size: 2.4rem;
     text-align: center;
-    padding: 1rem;
+    padding: 2rem 1rem;
     margin-bottom: 1rem;
     /* background-color: #DF2935; */
 }
