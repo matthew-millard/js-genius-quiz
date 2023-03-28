@@ -142,7 +142,7 @@ var message = document.getElementById('message')
 var messageElement = document.createElement('p')
 var nextButton = document.getElementById('next-button')
 var numQuestion = document.getElementById('question-number')
-var timeLeft = 60
+var timeLeft = 5
 var userScore = 0
 var questionIndex = 0
 
@@ -185,6 +185,7 @@ submitButton.addEventListener('click', e => {
 	var userName = input.value.toLowerCase().trim()
 	if (userName === '') {
 		e.preventDefault()
+		clearErrorMessages(error)
 		var errorMessage = document.createElement('small')
 		errorMessage.innerText = 'Please enter your name.'
 		error.appendChild(errorMessage)
@@ -192,7 +193,6 @@ submitButton.addEventListener('click', e => {
 		var score = userScore
 		var name = userName.charAt(0).toUpperCase() + userName.slice(1)
 		var newScore = { score, name }
-
 		allHighScores.push(newScore)
 		allHighScores.sort((a, b) => b.score - a.score)
 		allHighScores.splice(numOfHighScores)
@@ -336,4 +336,10 @@ function showHighScores() {
 		li.innerText = `${index + 1}. ${highScore.name} - ${highScore.score} points`
 		highScoreList.appendChild(li)
 	})
+}
+
+function clearErrorMessages(error) {
+	while (error.children[0] != null) {
+		error.innerHTML = ''
+	}
 }
