@@ -142,7 +142,7 @@ var message = document.getElementById('message')
 var messageElement = document.createElement('p')
 var nextButton = document.getElementById('next-button')
 var numQuestion = document.getElementById('question-number')
-var timeLeft = 5
+var timeLeft = 60
 var userScore = 0
 var questionIndex = 0
 
