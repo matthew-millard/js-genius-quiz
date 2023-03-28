@@ -51,21 +51,21 @@ var questions = [
 		],
 	},
 	{
-		question: "The querySelector('selector') method always returns the first element it finds that matches the selector?",
+		question: 'The querySelector() method always returns the first element it finds that matches the selector?',
 		answers: [
 			{ text: 'True', correct: true },
 			{ text: 'False', correct: false },
 		],
 	},
 	{
-		question: "The querySelectorAll('selector') method returns a live HTMLCollection?",
+		question: 'The querySelectorAll() method returns a live HTMLCollection?',
 		answers: [
 			{ text: 'True', correct: false },
 			{ text: 'False', correct: true },
 		],
 	},
 	{
-		question: "The getElementsByClassName('selector') method returns a live HTMLCollection?",
+		question: 'The getElementsByClassName() method returns a live HTMLCollection?',
 		answers: [
 			{ text: 'True', correct: true },
 			{ text: 'False', correct: false },
