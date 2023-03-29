@@ -1,3 +1,32 @@
+// Global Variables
+var scoreboardModal = document.querySelector('.scoreboard')
+var viewScoreBoard = document.querySelector('[data-scoreboard*="open-scoreboard"]')
+var closeScoreBoardModal = document.querySelector('[data-scoreboard*="close"]')
+var form = document.getElementById('form')
+var submitButton = form.querySelector('button')
+var pointsScored = document.getElementById('points-scored')
+var score = document.getElementById('user-score')
+var timeUp = document.querySelector('.time-up')
+var quizBox = document.querySelector('.quiz-box')
+var questionsBox = document.querySelector('.quiz-box__questions')
+var startButton = document.querySelector('.start-button')
+var displayTimer = document.querySelector('#timer')
+var quizIntro = document.querySelector('.quizIntro')
+var questionElement = document.getElementById('question')
+var answersButtons = document.getElementById('answers')
+var message = document.getElementById('message')
+var messageElement = document.createElement('p')
+var nextButton = document.getElementById('next-button')
+var numQuestion = document.getElementById('question-number')
+var timeLeft = 60
+var userScore = 0
+var questionIndex = 0
+var numOfHighScores = 5
+var highScores = 'High Scores'
+var highScoreString = localStorage.getItem(highScores)
+var allHighScores = JSON.parse(highScoreString) ?? []
+showHighScores()
+
 // Questions Array
 var questions = [
 	{
@@ -106,15 +135,6 @@ var questions = [
 		],
 	},
 	{
-		question: 'Which array method returns a boolean value if the array contains a certain value?',
-		answers: [
-			{ text: 'entries()', correct: false },
-			{ text: 'find()', correct: false },
-			{ text: 'includes()', correct: true },
-			{ text: 'contains()', correct: false },
-		],
-	},
-	{
 		question: '$() is the shorthand for jQuery()?',
 		answers: [
 			{ text: 'True', correct: true },
@@ -123,83 +143,16 @@ var questions = [
 	},
 ]
 
-var scoreboardModal = document.querySelector('.scoreboard')
-var viewScoreBoard = document.querySelector('[data-scoreboard*="open-scoreboard"]')
-var closeScoreBoardModal = document.querySelector('[data-scoreboard*="close"]')
-var form = document.getElementById('form')
-var submitButton = form.querySelector('button')
-var pointsScored = document.getElementById('points-scored')
-var score = document.getElementById('user-score')
-var timeUp = document.querySelector('.time-up')
-var quizBox = document.querySelector('.quiz-box')
-var questionsBox = document.querySelector('.quiz-box__questions')
-var startButton = document.querySelector('.start-button')
-var displayTimer = document.querySelector('#timer')
-var quizIntro = document.querySelector('.quizIntro')
-var questionElement = document.getElementById('question')
-var answersButtons = document.getElementById('answers')
-var message = document.getElementById('message')
-var messageElement = document.createElement('p')
-var nextButton = document.getElementById('next-button')
-var numQuestion = document.getElementById('question-number')
-var timeLeft = 60
-var userScore = 0
-var questionIndex = 0
+// Functions
 
-var numOfHighScores = 5
-var highScores = 'High Scores'
-var highScoreString = localStorage.getItem(highScores)
-var allHighScores = JSON.parse(highScoreString) ?? []
-showHighScores()
-
+// Starts quiz function
 function startQuiz() {
-	quizIntro.classList.add('hide') // Hide rules
+	quizIntro.classList.add('hide') // Hide quiz description
 	startButton.classList.add('hide') // Hide start button
 	questionsBox.classList.remove('hide') // Show question container
 	setNextQuestion(questions) // Sets up the next question
 	startTimer() // Starts timer
 }
-
-startButton.addEventListener('click', startQuiz) // Starts quiz function
-nextButton.addEventListener('click', () => {
-	questionIndex++
-	nextButton.classList.add('hide')
-	clearAnswers()
-	clearMessage()
-	setNextQuestion()
-})
-
-// Open scoreboard modal
-viewScoreBoard.addEventListener('click', () => {
-	scoreboardModal.classList.toggle('hide')
-})
-
-// Close scoreboard modal
-closeScoreBoardModal.addEventListener('click', () => {
-	scoreboardModal.classList.add('hide')
-})
-
-submitButton.addEventListener('click', e => {
-	var error = form.querySelector('label')
-	var input = form.querySelector('input')
-	var userName = input.value.toLowerCase().trim()
-	if (userName === '') {
-		e.preventDefault()
-		clearErrorMessages(error)
-		var errorMessage = document.createElement('small')
-		errorMessage.innerText = 'Please enter your name.'
-		error.appendChild(errorMessage)
-	} else {
-		var score = userScore
-		var name = userName.charAt(0).toUpperCase() + userName.slice(1)
-		var newScore = { score, name }
-		allHighScores.push(newScore)
-		allHighScores.sort((a, b) => b.score - a.score)
-		allHighScores.splice(numOfHighScores)
-		localStorage.setItem(highScores, JSON.stringify(allHighScores))
-		location.reload()
-	}
-})
 
 // Timer Function
 function startTimer() {
@@ -245,16 +198,16 @@ function selectAnswer(e) {
 	timePenalty(incorrect)
 	Array.from(answersButtons.children).forEach(button => {
 		setStatusClass(button, button.getAttribute('data-correct'))
-		removeEventListener(button, selectAnswer)
+		removeEventListener(button, selectAnswer) // prevent the user from repeat clicking the correct answer to gain unfair points
 	})
 
-	// This will prevent showing the next question button if the user is on the last question.
+	// Will display next question button if condition is true.
 	if (questions.length > questionIndex + 1 && selectAnswer != null) {
 		nextButton.classList.remove('hide')
 	}
 }
 
-// Change the color of the answer buttons based on whether they are true or false. Add one point to the user's score if answered correctly.
+// Change the color of the answer buttons based on whether they are true or false.
 function setStatusClass(element, correct) {
 	if (correct) {
 		element.classList.add('correct')
@@ -289,8 +242,20 @@ function clearAnswers() {
 function timePenalty(incorrect) {
 	if (incorrect != null && timeLeft > 0) {
 		timeLeft -= 5
-		return timeLeft
 	}
+}
+
+// If the user's answer is correct, will add one point to the user's score.
+function updateScore(selectedAnswer) {
+	if (selectedAnswer.getAttribute('data-correct')) {
+		userScore++
+		score.innerText = userScore
+	}
+}
+
+// After the user has selected their answer, this function removes the option to click again.
+function removeEventListener(element, callback) {
+	element.removeEventListener('click', callback)
 }
 
 // Time is up window.
@@ -303,32 +268,7 @@ function timeIsUp() {
 	})
 }
 
-// If the user's answer is correct, will add one point to the user's score.
-function updateScore(selectedAnswer) {
-	if (selectedAnswer.getAttribute('data-correct')) {
-		userScore++
-		score.innerText = userScore
-	}
-	return
-}
-
-// After the user has selected their answer, this function removes the option to click again.
-function removeEventListener(element, callback) {
-	element.removeEventListener('click', callback)
-}
-
-// Check for a high score
-
-// function checkHighScore(score) {
-// 	var highScores = JSON.parse(localStorage.getItem(highScores)) ?? []
-// 	var lowestScore = highScores[numOfHighScores - 1]?.score ?? 0
-
-// 	if (score > lowestScore) {
-// 		saveHighScore(score, allHighScores)
-// 		showHighScores()
-// 	}
-// }
-
+// Display high scores on the scoreboard
 function showHighScores() {
 	var highScoreList = document.getElementById('high-scores')
 	allHighScores.forEach((highScore, index) => {
@@ -343,3 +283,50 @@ function clearErrorMessages(error) {
 		error.innerHTML = ''
 	}
 }
+
+// Event Listeners
+
+// Start Quiz event listener
+startButton.addEventListener('click', startQuiz)
+
+// Next question event listener
+nextButton.addEventListener('click', () => {
+	questionIndex++
+	nextButton.classList.add('hide')
+	clearAnswers()
+	clearMessage()
+	setNextQuestion()
+})
+
+// Open scoreboard modal
+viewScoreBoard.addEventListener('click', () => {
+	scoreboardModal.classList.toggle('hide')
+})
+
+// Close scoreboard modal
+closeScoreBoardModal.addEventListener('click', () => {
+	scoreboardModal.classList.add('hide')
+})
+
+// Log name to claim score
+submitButton.addEventListener('click', e => {
+	var error = form.querySelector('label')
+	var input = form.querySelector('input')
+	var userName = input.value.toLowerCase().trim()
+	if (userName === '') {
+		e.preventDefault()
+		clearErrorMessages(error)
+		var errorMessage = document.createElement('small')
+		errorMessage.innerText = 'Please enter your name.'
+		error.appendChild(errorMessage)
+	} else {
+		var score = userScore
+		var name = userName.charAt(0).toUpperCase() + userName.slice(1)
+		var newScore = { score, name }
+		allHighScores.push(newScore)
+		allHighScores.sort((a, b) => b.score - a.score) // sorts array in descending order.
+		allHighScores.splice(numOfHighScores)
+		localStorage.setItem(highScores, JSON.stringify(allHighScores)) // Update all the high scores in local storage.
+		location.reload() // refresh page.
+	}
+})
