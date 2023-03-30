@@ -43,6 +43,7 @@ Create a timed coding quiz app with multiple-choice questions that will run in t
 1. Generate a colour palette on [coolors.co](https://coolors.co/)![Quiz app colour palette](./Develop/assets/screenshots/coolors.co_palette_f0db4f-3da35d-323330-df2935-ffffff.png)
 
 2. Create a basic wireframe of the layout.
+
 ![Quiz app wireframe](./Develop/assets/screenshots/wireframe-js-genius-quiz-app.jpg)
 
 3. Build out the inital HTML and CSS with a mobile first approach.
